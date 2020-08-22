@@ -5,6 +5,8 @@ import {
   AddProductIcon,
   SearchWrapper,
   AddProductButton,
+  ProductsPerPageWrapper,
+  ProductsPerPageSelect,
 } from "./styles"
 import {
   Button,
@@ -15,6 +17,10 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
 } from "@material-ui/core"
 import { Pagination } from "@material-ui/lab"
 
@@ -71,6 +77,26 @@ const ProductsList: React.FC<ProductsListProps> = () => {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <ProductsPerPageWrapper>
+          <ProductsPerPageSelect variant="outlined">
+            <InputLabel id="items-per-page-select">
+              Products per page
+            </InputLabel>
+            <Select
+              labelId="items-per-page-select"
+              id="demo-simple-select-outlined"
+              value={10}
+              label="Products per page"
+            >
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={30}>30</MenuItem>
+            </Select>
+          </ProductsPerPageSelect>
+
+          <Pagination count={10} color="primary" />
+        </ProductsPerPageWrapper>
       </main>
     </ProductsListStyledContainer>
   )

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Add } from "@styled-icons/material"
-import { Button } from "@material-ui/core"
+import { Button, FormControl } from "@material-ui/core"
 
 export const ProductsListStyledContainer = styled.section`
   height: 100%;
@@ -8,11 +8,17 @@ export const ProductsListStyledContainer = styled.section`
   display: grid;
   grid:
     "header" max-content
-    "content" 0.7fr
-    /0.5fr;
+    "content" max-content
+    / 0.5fr;
   justify-content: center;
   align-content: center;
   gap: 1.5rem;
+
+  main {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1.5rem;
+  }
 `
 
 export const Header = styled.header`
@@ -41,4 +47,14 @@ export const SearchWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`
+
+export const ProductsPerPageWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const ProductsPerPageSelect = styled(FormControl)`
+  width: 200px;
 `
