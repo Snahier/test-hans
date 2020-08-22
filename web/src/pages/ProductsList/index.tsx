@@ -6,7 +6,16 @@ import {
   SearchWrapper,
   AddProductButton,
 } from "./styles"
-import { Button, TextField } from "@material-ui/core"
+import {
+  Button,
+  TextField,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@material-ui/core"
 import { Pagination } from "@material-ui/lab"
 
 interface ProductsListProps {}
@@ -26,6 +35,43 @@ const ProductsList: React.FC<ProductsListProps> = () => {
           <Pagination count={10} color="primary" />
         </SearchWrapper>
       </Header>
+
+      <main>
+        <TableContainer>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Image</TableCell>
+                <TableCell>Réf.</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Price HT</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Active</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {[1, 2, 3, 4, 5].map((row) => (
+                <TableRow key={row}>
+                  <TableCell component="th" scope="row">
+                    {row}
+                  </TableCell>
+                  <TableCell>image src</TableCell>
+                  <TableCell>T001</TableCell>
+                  <TableCell>Example name 1</TableCell>
+                  <TableCell>T-shirt</TableCell>
+                  <TableCell>Price HT</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Active</TableCell>
+                  <TableCell>(...)</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </main>
     </ProductsListStyledContainer>
   )
 }

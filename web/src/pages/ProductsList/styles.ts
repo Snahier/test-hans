@@ -12,6 +12,7 @@ export const ProductsListStyledContainer = styled.section`
     /0.5fr;
   justify-content: center;
   align-content: center;
+  gap: 1.5rem;
 `
 
 export const Header = styled.header`
