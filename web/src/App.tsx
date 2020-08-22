@@ -1,11 +1,8 @@
 import React from "react"
+import Routes from "./pages/routes"
 
 function App() {
-  return (
-    <div className="App">
-      <h1>App Component</h1>
-    </div>
-  )
+  return <Routes />
 }
 
 export default App
