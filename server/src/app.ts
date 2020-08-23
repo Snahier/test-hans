@@ -2,7 +2,7 @@ import "reflect-metadata"
 import { createConnection } from "typeorm"
 import express from "express"
 import { router } from "./routes"
-import { Category } from "./entities/Category"
+import cors from "cors"
 
 createConnection({
   type: "mysql",
@@ -22,6 +22,7 @@ createConnection({
 
     const app = express()
 
+    app.use(cors())
     app.use(express.json())
     app.use(router)
 
