@@ -18,8 +18,6 @@ createConnection({
   logging: false,
 })
   .then((connection) => {
-    console.log("Connected")
-
     const app = express()
 
     app.use(cors())

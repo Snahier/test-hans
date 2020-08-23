@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   EditProductStyledContainer,
   EditorWrapper,
@@ -19,10 +19,46 @@ import {
   Button,
 } from "@material-ui/core"
 import MUIRichTextEditor from "mui-rte"
+import { api } from "../../config/api"
 
 interface EditProductProps {}
 
+interface Categories {
+  id: number
+  name: string
+  selected: boolean
+}
+
 const EditProduct: React.FC<EditProductProps> = () => {
+  const [categories, setCategories] = useState<Categories[]>([])
+
+  // Fetch all categories from the database
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const { data } = await api.get("categories")
+
+        const categories = data.map((category: Categories) => ({
+          ...category,
+          selected: true,
+        }))
+
+        setCategories(categories)
+      } catch (error) {
+        alert("Error while fetching data")
+      }
+    })()
+  }, [])
+
+  function handleUncheckBox(id: number) {
+    const updatedCheckboxCategories = categories.map((category: Categories) =>
+      category.id === id
+        ? { ...category, selected: !category.selected }
+        : { ...category }
+    )
+    setCategories(updatedCheckboxCategories)
+  }
+
   return (
     <EditProductStyledContainer>
       <h1>Example name 1</h1>
@@ -75,10 +111,15 @@ const EditProduct: React.FC<EditProductProps> = () => {
             }
           >
             <ListWraper>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((category) => (
-                <ListItem key={category}>
-                  <Checkbox size="small" color="primary" />
-                  <ListItemText primary={`Category ${category}`} />
+              {categories.map((category) => (
+                <ListItem key={category.id}>
+                  <Checkbox
+                    size="small"
+                    color="primary"
+                    checked={category.selected}
+                    onClick={() => handleUncheckBox(category.id)}
+                  />
+                  <ListItemText primary={category.name} />
                 </ListItem>
               ))}
             </ListWraper>

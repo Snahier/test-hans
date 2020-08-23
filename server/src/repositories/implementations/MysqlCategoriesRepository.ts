@@ -6,7 +6,6 @@ export class MysqlCategoriesRepository implements CategoriesRepository {
   async getAllCategories(): Promise<Category[]> {
     try {
       const categories = await getManager().find(Category)
-      console.log(categories)
       return categories
     } catch (error) {
       throw new Error(error)
