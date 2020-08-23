@@ -5,6 +5,11 @@ export class ListProductsController {
   constructor(private readonly listProductsUseCase: ListProductsUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    return response.json({ error: { message: "Method not implemented" } })
+    try {
+      const products = await this.listProductsUseCase.execute()
+      return response.json(products)
+    } catch (error) {
+      return response.json({ error })
+    }
   }
 }
