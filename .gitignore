@@ -1,2 +1,11 @@
+# General
 node_modules
+
+# Server
+# ormconfig.json
+# server/database/config.ts
+
+# Database
 dockerVolumes
+
+# Web
