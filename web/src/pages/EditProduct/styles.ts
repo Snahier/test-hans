@@ -8,6 +8,13 @@ export const EditProductStyledContainer = styled.section`
     "header header" max-content
     "content aside" 0.7fr
     / 0.4fr 0.15fr;
+  @media (max-width: 1024px) {
+    grid:
+      "header" max-content
+      "content" max-content
+      "aside" max-content
+      / 0.75fr;
+  }
   justify-content: center;
   align-content: center;
   gap: 1.5rem;

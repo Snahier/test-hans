@@ -10,6 +10,13 @@ export const ProductsListStyledContainer = styled.section`
     "header" max-content
     "content" max-content
     / 0.5fr;
+  @media (max-width: 1024px) {
+    grid:
+      "header" max-content
+      "content" max-content
+      / 0.9fr;
+  }
+
   justify-content: center;
   align-content: center;
   gap: 1.5rem;
