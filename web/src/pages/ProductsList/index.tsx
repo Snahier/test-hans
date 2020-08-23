@@ -9,7 +9,6 @@ import {
   ProductsPerPageSelect,
 } from "./styles"
 import {
-  Button,
   TextField,
   TableContainer,
   Table,
@@ -20,7 +19,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormControl,
 } from "@material-ui/core"
 import { Pagination } from "@material-ui/lab"
 
