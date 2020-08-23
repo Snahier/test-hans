@@ -1,4 +1,3 @@
 import { app } from "./app"
 
-const port = 3333
-app.listen(port, () => console.log(`app listening at port: ${port}`))
+app.listen(3333, () => console.log("Listening on port 3333"))

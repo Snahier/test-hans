@@ -22,11 +22,13 @@ services:
       MYSQL_DATABASE: defaultdb
     volumes:
       - ./mysql/dockerVolumes:/var/lib/mysql
+    networks:
+      - backend
 
 networks:
   backend:
     name: backend
     driver: bridge
   frontend:
-    name: backend
+    name: frontend
     driver: bridge

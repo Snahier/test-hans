@@ -1,6 +1,7 @@
+import "reflect-metadata"
+import { createConnection } from "typeorm"
 import express from "express"
 import { router } from "./routes"
-import "reflect-metadata"
 
 const app = express()
 
