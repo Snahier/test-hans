@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from "typeorm"
+import { Category } from "./Category"
 
 @Entity({ name: "products" })
 export class Product {
@@ -25,4 +32,8 @@ export class Product {
 
   @Column("boolean")
   active: boolean
+
+  @ManyToMany((type) => Category)
+  @JoinTable()
+  categories: Category[]
 }

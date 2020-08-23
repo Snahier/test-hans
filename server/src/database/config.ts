@@ -9,7 +9,7 @@ const connection = connectionManager.create({
   password: "root",
   database: "defaultdb",
   entities: ["src/entities/**/*.ts"],
-  migrations: ["src/migrations/**/*.ts"],
+  migrations: ["src/database/migrations/**/*.ts"],
   subscribers: ["src/subscribers/**/*.ts"],
   synchronize: true,
   logging: false,
