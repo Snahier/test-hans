@@ -1,5 +1,5 @@
 import { ProductsRepository } from "../ProductsRepository"
-import { getManager, getConnection, getRepository } from "typeorm"
+import { getManager } from "typeorm"
 import { Product } from "../../entities/Product"
 
 export class MysqlProductsRepository implements ProductsRepository {

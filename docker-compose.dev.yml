@@ -1,5 +1,17 @@
 version: "3.7"
 services:
+  react:
+    container_name: react
+    build: ./web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/web
+    networks:
+      - frontend
+    depends_on:
+      - express
+    stdin_open: true
   express:
     container_name: express
     build: ./server
