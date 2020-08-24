@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { Add } from "@styled-icons/material"
 import { Button, FormControl } from "@material-ui/core"
+import { Edit, Delete } from "@styled-icons/material"
 
 export const ProductsListStyledContainer = styled.section`
   height: 100%;
@@ -64,4 +65,16 @@ export const ProductsPerPageWrapper = styled.div`
 
 export const ProductsPerPageSelect = styled(FormControl)`
   width: 200px;
+`
+
+export const EditIcon = styled(Edit)`
+  width: 1rem;
+  height: 1rem;
+  color: #5e5efa;
+`
+
+export const DeleteIcon = styled(Delete)`
+  width: 1rem;
+  height: 1rem;
+  color: #da4848;
 `

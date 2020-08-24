@@ -20,17 +20,34 @@ import {
 } from "@material-ui/core"
 import MUIRichTextEditor from "mui-rte"
 import { api } from "../../config/api"
+import { useHistory } from "react-router-dom"
 
 interface EditProductProps {}
 
-interface Categories {
+interface Product {
+  id: number
+  image: string
+  reference: string
+  name: string
+  priceHt: number
+  priceTtc: number
+  quantity: number
+  active: boolean
+  categories: [Category]
+}
+
+interface Category {
   id: number
   name: string
-  selected: boolean
+  selected?: boolean
 }
 
 const EditProduct: React.FC<EditProductProps> = () => {
-  const [categories, setCategories] = useState<Categories[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+  const history = useHistory()
+  const [product, setProduct] = useState<Product>(
+    history.location.state as Product
+  )
 
   // Fetch all categories from the database
   useEffect(() => {
@@ -38,30 +55,40 @@ const EditProduct: React.FC<EditProductProps> = () => {
       try {
         const { data } = await api.get("categories")
 
-        const categories = data.map((category: Categories) => ({
-          ...category,
-          selected: true,
-        }))
-
-        setCategories(categories)
+        setCategories(data)
+        handleCheckIfCategoryIsActive()
       } catch (error) {
         alert("Error while fetching data")
       }
     })()
   }, [])
 
-  function handleUncheckBox(id: number) {
-    const updatedCheckboxCategories = categories.map((category: Categories) =>
-      category.id === id
-        ? { ...category, selected: !category.selected }
-        : { ...category }
-    )
-    setCategories(updatedCheckboxCategories)
+  // function handleUncheckBox(id: number) {
+  //   const updatedCheckboxCategories = categories.map((category: Category) =>
+  //     category.id === id
+  //       ? { ...category, selected: !category.selected }
+  //       : { ...category }
+  //   )
+  //   setCategories(updatedCheckboxCategories)
+  // }
+
+  function handleCheckIfCategoryIsActive() {
+    const newArr = categories.map((category: Category) => {
+      console.log(category)
+      for (const active of product.categories) {
+        console.log(active)
+        return category.id === active.id
+          ? { ...category, selected: true }
+          : { ...category, selected: false }
+      }
+    })
+
+    setCategories(newArr)
   }
 
   return (
     <EditProductStyledContainer>
-      <h1>Example name 1</h1>
+      <h1>{product.name}</h1>
 
       <main>
         <DropzoneArea
@@ -92,12 +119,32 @@ const EditProduct: React.FC<EditProductProps> = () => {
       </main>
 
       <aside>
-        <TextField label="Reference" variant="outlined" size="small" />
-        <TextField label="Quantity" variant="outlined" size="small" />
+        <TextField
+          label="Reference"
+          value={product.reference}
+          variant="outlined"
+          size="small"
+        />
+        <TextField
+          label="Quantity"
+          value={product.quantity}
+          variant="outlined"
+          size="small"
+        />
 
         <PriceWrapper>
-          <TextField label="Price (HT)" variant="outlined" size="small" />
-          <TextField label="Price (TTC)" variant="outlined" size="small" />
+          <TextField
+            label="Price (HT)"
+            value={product.priceHt}
+            variant="outlined"
+            size="small"
+          />
+          <TextField
+            label="Price (TTC)"
+            value={product.priceTtc}
+            variant="outlined"
+            size="small"
+          />
         </PriceWrapper>
 
         <Paper>
@@ -116,8 +163,8 @@ const EditProduct: React.FC<EditProductProps> = () => {
                   <Checkbox
                     size="small"
                     color="primary"
-                    checked={category.selected}
-                    onClick={() => handleUncheckBox(category.id)}
+                    // checked={category.selected}
+                    // onClick={() => handleUncheckBox(category.id)}
                   />
                   <ListItemText primary={category.name} />
                 </ListItem>

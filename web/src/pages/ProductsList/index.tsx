@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   ProductsListStyledContainer,
   Header,
@@ -7,6 +7,8 @@ import {
   AddProductButton,
   ProductsPerPageWrapper,
   ProductsPerPageSelect,
+  EditIcon,
+  DeleteIcon,
 } from "./styles"
 import {
   TextField,
@@ -19,12 +21,51 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Button,
+  Menu,
+  IconButton,
 } from "@material-ui/core"
 import { Pagination } from "@material-ui/lab"
+import { api } from "../../config/api"
+import { useHistory } from "react-router-dom"
 
 interface ProductsListProps {}
 
+interface Product {
+  id: number
+  image: string
+  reference: string
+  name: string
+  priceHt: number
+  priceTtc: number
+  quantity: number
+  active: boolean
+  categories: [Categories]
+}
+
+interface Categories {
+  id: number
+  name: string
+}
+
 const ProductsList: React.FC<ProductsListProps> = () => {
+  const [products, setProducts] = useState<Product[]>([])
+
+  const history = useHistory()
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const { data: products } = await api.get("products")
+        console.log(products)
+        setProducts(products)
+      } catch (error) {
+        alert("Error while fetching products")
+      }
+    })()
+    api.get("products")
+  }, [])
+
   return (
     <ProductsListStyledContainer>
       <Header>
@@ -57,19 +98,30 @@ const ProductsList: React.FC<ProductsListProps> = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {[1, 2, 3, 4, 5].map((row) => (
-                <TableRow key={row}>
+              {products.map((product) => (
+                <TableRow key={product.id}>
                   <TableCell component="th" scope="row">
-                    {row}
+                    {product.id}
                   </TableCell>
-                  <TableCell>image src</TableCell>
-                  <TableCell>T001</TableCell>
-                  <TableCell>Example name 1</TableCell>
-                  <TableCell>T-shirt</TableCell>
-                  <TableCell>Price HT</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Active</TableCell>
-                  <TableCell>(...)</TableCell>
+                  <TableCell>{product.image}</TableCell>
+                  <TableCell>{product.reference}</TableCell>
+                  <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.categories[0].name}</TableCell>
+                  <TableCell>{product.priceHt}</TableCell>
+                  <TableCell>{product.quantity}</TableCell>
+                  <TableCell>{product.active ? "yes" : "no"}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={() =>
+                        history.push(`/products/${product.id}`, product)
+                      }
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
