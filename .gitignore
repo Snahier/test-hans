@@ -6,6 +6,6 @@ node_modules
 # server/database/config.ts
 
 # Database
-dockerVolumes
+# dockerVolumes
 
 # Web
