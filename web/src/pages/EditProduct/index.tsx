@@ -56,35 +56,36 @@ const EditProduct: React.FC<EditProductProps> = () => {
         const { data } = await api.get("categories")
 
         setCategories(data)
-        handleCheckIfCategoryIsActive()
       } catch (error) {
         alert("Error while fetching data")
       }
     })()
   }, [])
 
-  // function handleUncheckBox(id: number) {
-  //   const updatedCheckboxCategories = categories.map((category: Category) =>
-  //     category.id === id
-  //       ? { ...category, selected: !category.selected }
-  //       : { ...category }
-  //   )
-  //   setCategories(updatedCheckboxCategories)
-  // }
-
-  function handleCheckIfCategoryIsActive() {
-    const newArr = categories.map((category: Category) => {
-      console.log(category)
-      for (const active of product.categories) {
-        console.log(active)
-        return category.id === active.id
-          ? { ...category, selected: true }
-          : { ...category, selected: false }
-      }
-    })
-
-    setCategories(newArr)
+  function handleUncheckBox(id: number) {
+    const updatedCheckboxCategories = categories.map((category: Category) =>
+      category.id === id
+        ? { ...category, selected: !category.selected }
+        : { ...category }
+    )
+    setCategories(updatedCheckboxCategories)
   }
+
+  // TODO: Fix the Array update
+
+  // function handleCheckIfCategoryIsActive() {
+  //   const newArr = categories.map((category: Category) => {
+  //     console.log(category)
+  //     for (const active of product.categories) {
+  //       console.log(active)
+  //       return category.id === active.id
+  //         ? { ...category, selected: true }
+  //         : { ...category, selected: false }
+  //     }
+  //   })
+
+  //   setCategories(newArr)
+  // }
 
   return (
     <EditProductStyledContainer>
@@ -163,8 +164,8 @@ const EditProduct: React.FC<EditProductProps> = () => {
                   <Checkbox
                     size="small"
                     color="primary"
-                    // checked={category.selected}
-                    // onClick={() => handleUncheckBox(category.id)}
+                    checked={false}
+                    onClick={() => handleUncheckBox(category.id)}
                   />
                   <ListItemText primary={category.name} />
                 </ListItem>
